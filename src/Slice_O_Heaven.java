@@ -141,10 +141,8 @@ public class Slice_O_Heaven
         }
         return total;
     }
-    public void takeOrder(String id, double total)
+    public void takeOrder()
     {
-        OrderID = id;
-        OrderTotal = total;
         System.out.println("Order accepted!");
         System.out.println("Order is being prepared");
         try{
@@ -161,6 +159,7 @@ public class Slice_O_Heaven
     }
     public void printReceipt()
     {
+        OrderTotal=calculateTotal();
         System.out.println("********RECEIPT********");
         System.out.println("Order ID: " + OrderID);
         System.out.println("Order Total: " + OrderTotal);

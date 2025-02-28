@@ -7,7 +7,7 @@ public class App {
         pizza.chooseSize();
         pizza.chooseDrink();
         pizza.choosePizzaIngredients();
-        pizza.takeOrder("1234", );
+        pizza.takeOrder();
         
     }
 }
