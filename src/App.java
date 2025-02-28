@@ -1,7 +1,13 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        LuckinCoffee luckcoffee = new LuckinCoffee();
-        luckcoffee.takeOrder("1234", "2 lattes", 20.00);
+        Slice_O_Heaven pizza = new Slice_O_Heaven();
+        pizza.setOrderID("1234");
+        pizza.displayMenu();
+        pizza.choosePizza();
+        pizza.chooseSize();
+        pizza.chooseDrink();
+        pizza.choosePizzaIngredients();
+        pizza.takeOrder("1234", );
         
     }
 }
