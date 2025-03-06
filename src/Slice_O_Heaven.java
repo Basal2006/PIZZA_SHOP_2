@@ -67,7 +67,6 @@ public class Slice_O_Heaven
             public void setOrderpizza(String order) {
                 this.Orderpizza = order;
             }
-            
             public String getorderPizzaIngredients() {
                 return orderPizzaIngredients;
             }
@@ -108,9 +107,27 @@ public class Slice_O_Heaven
             }
             public void chooseSize()
             {
-                System.out.println("Enter size of pizza (Small, Medium, Large): ");
+                System.out.println("What size should your pizza be?\r\n" + //
+                                        " 1. Large\r\n" + //
+                                        " 2. Medium\r\n" + //
+                                        " 3. Small\r\n" + //
+                                        " Enter only one choice (1, 2, or 3): ");
                 String choice = input.nextLine();
-                setOrderSize(choice);
+                switch(choice)
+                {
+                    case "1":
+                        setOrderSize("Large");
+                        break;
+                    case "2":
+                        setOrderSize("Medium");
+                        break;
+                    case "3":
+                        setOrderSize("Small");
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please pick only from the given list:");
+                        break;
+                }
                 System.out.println("Your pizza's size is: " + getOrderSize());
             }
 
@@ -120,8 +137,6 @@ public class Slice_O_Heaven
 
             public void chooseDrink()
             {
-             String Drinks="";
-             int i=0;
                 System.out.println("”Choose from one of the drinks below. We recommend Coca Cola:\r\n" + //
                                         " 1. Coca Cola\r\n" + //
                                         " 2. Cold coffee\r\n" + //
@@ -132,29 +147,23 @@ public class Slice_O_Heaven
                 switch(choice)
                 {
                     case 1:
-
-                        Drinks= "Coca Cola";
+                        setorderDrinks("Coca Cola");
                         break;
                     case 2:
-
-                        Drinks = "Cold coffee";
+                        setorderDrinks("Cold coffee");
                         break;
                     case 3:
-
-                        Drinks = "Cocoa Drink";
+                        setorderDrinks("Cocoa Drink");
                         break;
                     case 4:
-
+                        System.out.println("You don't need any drinks");;
                         break;
                     default:
-                        System.out.println("Invalid choice. Please pick from the given list:");
-                        i=i-1;
+                        System.out.println("Invalid choice. Please pick only from the given list:");
                         break;
-                
                 }
-                System.out.println("Your drink is: " + Drinks);
-                     
-              
+                
+                System.out.println("Your drink is: " + getorderDrinks());
             }
 
 
@@ -317,7 +326,6 @@ public void processCardPayment( String cardNumber, String expiryDate,int cvv)
                 choiceing1 = choices[0];
                 choiceing2 = choices[1];
                 choiceing3 = choices[2];
-                chooseDrink();
                 System.out.println("Enter one side dish (Calzone, Garlic bread, None):");
                 String sidedish = input.nextLine();
                 this.side = sidedish;
@@ -334,7 +342,8 @@ public void processCardPayment( String cardNumber, String expiryDate,int cvv)
                 }
                 System.out.println("The ingredients of the pizza are:"+choiceing1+","+choiceing2+","+choiceing3+","+getorderPizzaIngredients());
                 System.out.println("The side dish is: " + side);
-                orderTotal = calculateTotal();
+                chooseDrink();
+
                 System.out.println("Would you like the chance to pay only half for your order? (Y/N):");
                 String halfOff = input.nextLine();
                 if(halfOff.equals("Y")||halfOff.equals("y"))
