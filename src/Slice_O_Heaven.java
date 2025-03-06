@@ -1,4 +1,7 @@
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 public class Slice_O_Heaven 
 {
    private Scanner input;
@@ -6,6 +9,7 @@ public class Slice_O_Heaven
    public String storeAddress ;
    public String storeEmail;
    public String storePhone;
+   public String side;
    public String[] storeMenu;
    public String pizzaIngredients;
    public  double[] pizzaPrices;
@@ -24,7 +28,9 @@ public class Slice_O_Heaven
     public String pizzaOfTheDay;
     public String sideOfTheDay; 
     public String specialPrice;
-   
+   public String cardNumber;
+    public String expiryDate;
+    public int cvv;
         
     
             public  Slice_O_Heaven()
@@ -98,96 +104,138 @@ public class Slice_O_Heaven
                 System.out.println("Choose a pizza: ");
                 String choice = input.nextLine();
                 setOrderpizza(choice);
-                System.out.println("You chose: " + getOrderpizza());
-                System.out.println("Do you want extra cheese (Y/N):");
+                System.out.println("Your pizza is: " + getOrderpizza());
             }
             public void chooseSize()
             {
-                
-                System.out.println("Choose a size: ");
+                System.out.println("Enter size of pizza (Small, Medium, Large): ");
                 String choice = input.nextLine();
                 setOrderSize(choice);
-                System.out.println("You chose: " + getOrderSize());
-             
+                System.out.println("Your pizza's size is: " + getOrderSize());
             }
+
+
+
+
+
             public void chooseDrink()
             {
-             
-                System.out.println("Choose a drink: ");
-                String choice = input.nextLine();
-                setorderDrinks(choice);;
-                System.out.println("You chose: " + getorderDrinks());
-             
-            }
-            public void choosePizzaIngredients()
-            {
-            
-                System.out.println("Choose PizzaIngredients: ");
-                String choice = input.nextLine();
-                setorderPizzaIngredients(choice);
-                System.out.println("You chose: " + getorderPizzaIngredients());
-        
-            }
-            public void closeScanner() {
-                input.close();
-            }
-            public double calculateTotal()
-            {
-                double total = 0;
-                for(int i = 0; i < storeMenu.length; i++)
+             String[] Drinks = new String[4];
+             int i=0;
+                System.out.println("”Choose from one of the drinks below. We recommend Coca Cola:\r\n" + //
+                                        " 1. Coca Cola\r\n" + //
+                                        " 2. Cold coffee\r\n" + //
+                                        " 3. Cocoa Drink\r\n" + //
+                                        " 4. No drinks for me\r\n" + //
+                                        " Enter your choice:");
+                
+                     for( i = 0; i < 3; i++)
+                     {
+                        int choice = input.nextInt();
+                        if(choice == 4)
+                        {
+                            System.out.println("No drinks for me");
+                            break;
+                        }
+                switch(choice)
                 {
-                    if(getOrderpizza().equals(storeMenu[i]))
-                    {
-                        total += pizzaPrices[i];
-                    }
+                    case 1:
+                        System.out.println ("Coca Cola");
+                        Drinks[i] = "Coca Cola";
+                        break;
+                    case 2:
+                        System.out.println ("Cold coffee");
+                        Drinks[i] = "Cold coffee";
+                        break;
+                    case 3:
+                        System.out.println ("Cocoa Drink");
+                        Drinks[i] = "Cocoa Drink";
+                        break;
+                    case 4:
+                        System.out.println ("No drinks for me");
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please pick from the given list:");
+                        i=i-1;
+                        break;
+                
                 }
+                     }
+                if(i==1)
+                {
+                    System.out.print("your drink is");
+                    System.out.println(Drinks[0]);
+                }
+                else
+                {
+                System.out.print("your drinks are");
+            for(int j=0;j<=i;j++)
+            {
+                System.out.print(Drinks[j]);
+            }
+            }
+            System.out.println("");
+            }
 
-                System.out.println("Total price: " + total);
-                for(int i = 0; i < Drinks.length; i++)
+
+
+            public void isItYourBirthday()
+            {
+                System.out.println("When is your birthday(yyyy-MM-dd):");
+                String birthday = input.nextLine();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate birthdate = LocalDate.parse(birthday, formatter);
+                LocalDate today = LocalDate.now();
+                Period p = Period.between(birthdate, today);
+                int age = p.getYears();
+                if(age<18)
                 {
-                    if(getorderDrinks().equals(Drinks[i]))
-                    {
-                        total += Drinksprices[i];
-                    }
+                if(p.getMonths() == 0 && p.getDays() == 0)
+                {
+                    orderTotal = orderTotal / 2;
+                    System.out.println("Congratulations! You pay only half the price for your order");
                 }
-                System.out.println("Pizza price: " + total);
-                return total;
-            }
-            public void takeOrder()
-            {
-                System.out.println("Order accepted!");
-                System.out.println("Order is being prepared");
-                try{
-                    Thread.sleep(5000);
-                } catch (InterruptedException e){
-                    System.out.println("Order is ready for pickup!");
+                else
+                {
+                    System.out.println("Too bad! You do not meet the conditions to get our 50% discount");
                 }
-                System.out.println("Your order is ready!");
-                printReceipt();
+                } 
+                else
+                {
+                    System.out.println("Too bad! You do not meet the conditions to get our 50% discount");
+                }  
             }
-            public void makePizza()
-            {
-                System.out.println("Pizza made");
-            }
-            public void printReceipt()
-            {
-                orderTotal=calculateTotal();
-                System.out.println("Order total: " + orderTotal);
-                System.out.println("********RECEIPT********");
-                System.out.println("Order ID: " + OrderID);
-                System.out.println("Order Total: " + orderTotal);
-            }
-            public void specialOfTheDay(String pizzaOfTheDay, String sideOfTheDay, String specialPrice) 
-            {
-                this.sideOfTheDay = pizzaOfTheDay;
-                this.sideOfTheDay = sideOfTheDay;
-                this.specialPrice = specialPrice;
-            System.out.println("********SPECIAL OF THE DAY********");
-            System.out.println("Pizza of the day: " + pizzaOfTheDay);
-            System.out.println("Side of the day: " + sideOfTheDay);
-            System.out.println("Special Price: " + specialPrice);
-            }
-            public void processCardPayment(String  cardNumber, String expiryDate,int cvv)
+
+
+
+
+
+public void makeCardPayment()
+{
+    System.out.println("Enter card number:");
+    long cardNumber = input.nextLong();
+    String cN = Long.toString(cardNumber);
+    this.cardNumber = cN;
+    System.out.println("Enter expiry date(yyyy-MM):");
+    String expiryDate = input.nextLine();
+    this.expiryDate = expiryDate;
+    System.out.println("Enter CVV:");
+    String cvv = input.nextLine();
+    int num = Integer.parseInt(cvv);
+    this.cvv = num;
+    if(cvv.length() !=3)
+    {
+        System.out.println("Invalid CVV. CVV should be 3 digits long. Please try again.");
+        cvv = "";
+    }
+}
+
+
+
+
+
+
+public void processCardPayment( String cardNumber, String expiryDate,int cvv)
             {
                     int cardLength = cardNumber.length();
                     int firstCardDigit = Integer.parseInt(cardNumber.substring(0, 1));
@@ -216,6 +264,144 @@ public class Slice_O_Heaven
                         System.out.println("Invalid card");
                     } 
              }
+
+
+
+
+
+
+            public double calculateTotal()
+            {
+                double total = 0;
+                for(int i = 0; i < storeMenu.length; i++)
+                {
+                    if(getOrderpizza().equals(storeMenu[i]))
+                    {
+                        total += pizzaPrices[i];
+                    }
+                }
+                for(int i = 0; i < Drinks.length; i++)
+                {
+                    if(getorderDrinks().equals(Drinks[i]))
+                    {
+                        total += Drinksprices[i];
+                    }
+                }
+                return total;
+            }
+            public void takeOrder()
+            {
+                String choice;
+                String choiceing1;
+                String choiceing2;
+                String choiceing3;
+                String[] choices = new String[6];
+                System.out.println("Please pick any three of the following ingredients:\r\n" + //
+                                        " 1. Mushroom\r\n" + //
+                                        " 2. Paprika\r\n" + //
+                                        " 3. Sun-dried tomatoes\r\n" + //
+                                        " 4. Chicken\r\n" + //
+                                        " 5. Pineapple\r\n" + //
+                                        " Enter any three choices (1, 2, 3,…) separated by spaces:");
+                for(int i = 0; i < 3; i++)    
+                {    
+                    choice = input.nextLine();               
+                  switch(choice.substring(i*2,i*2+1)) 
+                  {
+                    case "1":
+                        System.out.println("Mushroom");
+                        choices[i] = "Mushroom";
+                        break;
+                    case "2":
+                        System.out.println("Paprika");
+                         choices[i]= "Paprika";
+                        break;
+                    case "3":
+                        System.out.println("Sun-dried tomatoes");
+                        choices[i] = "Sun-dried tomatoes";
+                        break;
+                    case "4":
+                        System.out.println("Chicken");
+                        choices[i] = "Chicken";
+                        break;
+                    case "5":
+                        System.out.println("Pineapple");
+                        choices[i] = "Pineapple";
+                        break;
+                    default:
+                        System.out.println("Invalid choice(s). Please pick only from the given list:");
+                        i=i-1;
+                        break;
+                    }                     
+                }
+                choiceing1 = choices[0];
+                choiceing2 = choices[1];
+                choiceing3 = choices[2];
+                chooseDrink();
+                System.out.println("Enter one side dish (Calzone, Garlic bread, None):");
+                String sidedish = input.nextLine();
+                this.side = sidedish;
+                chooseSize();
+                System.out.println("Do you want extra cheese (Y/N):");
+                String side = input.nextLine();
+                if(side.equals("Y")||side.equals("y"))
+                {
+                    setorderPizzaIngredients("Extra Cheese");
+                }
+                else
+                {
+                    setorderPizzaIngredients("No Extra Cheese");
+                }
+                System.out.println("The ingredients of the pizza are:"+choiceing1+","+choiceing2+","+choiceing3+","+getorderPizzaIngredients());
+                System.out.println("The side dish is: " + side);
+                orderTotal = calculateTotal();
+                System.out.println("Would you like the chance to pay only half for your order? (Y/N):");
+                String halfOff = input.nextLine();
+                if(halfOff.equals("Y")||halfOff.equals("y"))
+                {
+                    isItYourBirthday();
+                }
+                else
+                {
+                    makeCardPayment();
+                    processCardPayment( cardNumber, expiryDate, cvv);
+                }
+                System.out.println("Order accepted!");
+                System.out.println("Order is being prepared");
+                try{
+                    Thread.sleep(5000);
+                } catch (InterruptedException e){
+                    System.out.println("Order is ready for pickup!");
+                }
+                System.out.println("Your order is ready!");
+                printReceipt();
+            }
+            public void closeScanner() {
+                input.close();
+            }
+           
+            public void makePizza()
+            {
+                System.out.println("Pizza made");
+            }
+            public void printReceipt()
+            {
+                orderTotal=calculateTotal();
+                System.out.println("Order total: " + orderTotal);
+                System.out.println("********RECEIPT********");
+                System.out.println("Order ID: " + OrderID);
+                System.out.println("Order Total: " + orderTotal);
+            }
+            public void specialOfTheDay(String pizzaOfTheDay, String sideOfTheDay, String specialPrice) 
+            {
+                this.sideOfTheDay = pizzaOfTheDay;
+                this.sideOfTheDay = sideOfTheDay;
+                this.specialPrice = specialPrice;
+            System.out.println("********SPECIAL OF THE DAY********");
+            System.out.println("Pizza of the day: " + pizzaOfTheDay);
+            System.out.println("Side of the day: " + sideOfTheDay);
+            System.out.println("Special Price: " + specialPrice);
+            }
             
       
 }
