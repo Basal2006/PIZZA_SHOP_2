@@ -126,6 +126,7 @@ public class Slice_O_Heaven
                         break;
                     default:
                         System.out.println("Invalid choice. Please pick only from the given list:");
+                        chooseSize();
                         break;
                 }
                 System.out.println("Your pizza's size is: " + getOrderSize());
@@ -144,6 +145,7 @@ public class Slice_O_Heaven
                                         " 4. No drinks for me\r\n" + //
                                         " Enter your choice:");
                 int choice = input.nextInt();
+                input.nextLine();
                 switch(choice)
                 {
                     case 1:
@@ -156,17 +158,60 @@ public class Slice_O_Heaven
                         setorderDrinks("Cocoa Drink");
                         break;
                     case 4:
-                        System.out.println("You don't need any drinks");;
+                        setorderDrinks("");
                         break;
                     default:
                         System.out.println("Invalid choice. Please pick only from the given list:");
+                        chooseDrink();
                         break;
                 }
-                
-                System.out.println("Your drink is: " + getorderDrinks());
+                if(choice==4)
+                {
+                    System.out.println("You don't need any drinks");
+                }
+                else
+                {
+                    System.out.println("Your drink is: " + getorderDrinks());
+                }
             }
 
 
+
+
+            public void chooseSide()
+            {
+                System.out.println("Following are the side dish that go well with your pizza:\r\n" + //
+                                        " 1. Calzone\r\n" + //
+                                        " 2. Garlic bread\r\n" + //
+                                        " 3. Chicken puff\r\n" + //
+                                        " 4. Muffin\r\n" + //
+                                        " 5. Nothing for me\r\n" + //
+                                        " What would you like? Pick one (1, 2, 3,…):");
+                 int choice=input.nextInt();
+                    input.nextLine();
+                 switch(choice)     
+                  {
+                    case 1:
+                        this.side = "Calzone";
+                        break;
+                    case 2:
+                        this.side = "Garlic bread";
+                        break;
+                    case 3:
+                        this.side = "Chicken puff";
+                        break;
+                    case 4:
+                        this.side = "Muffin";
+                        break;
+                    case 5:
+                        this.side = "";
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please pick only from the given list:");
+                        chooseSide();
+                        break;
+                  }                 
+            }
 
             public void isItYourBirthday()
             {
@@ -177,6 +222,14 @@ public class Slice_O_Heaven
                 LocalDate today = LocalDate.now();
                 Period p = Period.between(birthdate, today);
                 int age = p.getYears();
+                if(age<=5&&age>=120)
+                {
+                    System.out.println("Invalid date. You are either too young or too dead to order. \r\n" + //
+                                                "Please enter a valid date:");
+                    isItYourBirthday();
+                }
+                else
+                {
                 if(age<18)
                 {
                 if(p.getMonths() == 0 && p.getDays() == 0)
@@ -192,33 +245,51 @@ public class Slice_O_Heaven
                 else
                 {
                     System.out.println("Too bad! You do not meet the conditions to get our 50% discount");
-                }  
+                } 
+                } 
             }
 
 
 
 
 
-public void makeCardPayment()
-{
-    System.out.println("Enter card number:");
-    long cardNumber = input.nextLong();
-    String cN = Long.toString(cardNumber);
-    this.cardNumber = cN;
-    System.out.println("Enter expiry date(yyyy-MM):");
-    String expiryDate = input.nextLine();
-    this.expiryDate = expiryDate;
-    System.out.println("Enter CVV:");
-    String cvv = input.nextLine();
-    int num = Integer.parseInt(cvv);
-    this.cvv = num;
-    if(cvv.length() !=3)
-    {
-        System.out.println("Invalid CVV. CVV should be 3 digits long. Please try again.");
-        cvv = "";
-    }
-}
-
+            public void makeCardPayment()
+            {
+                String cvv = "";
+                String expiryDate="0000-00";
+                LocalDate today = LocalDate.now();
+                int year = today.getYear();
+                int month = today.getMonthValue();
+                System.out.println("Enter card number:");
+                long cardNumber = input.nextLong();
+                input.nextLine(); 
+                String cN = Long.toString(cardNumber);
+                this.cardNumber = cN;
+                System.out.println("Enter expiry date(yyyy-MM):");
+                expiryDate = input.nextLine();
+                while(Integer.parseInt(expiryDate.substring(0,4)) < year || (Integer.parseInt(expiryDate.substring(0,4)) == year && Integer.parseInt(expiryDate.substring(5)) < month))
+                {
+                    System.out.println("Invalid expiry date. Please enter a valid expiry date:");
+                    expiryDate = input.nextLine();
+                }
+                this.expiryDate = expiryDate;
+                while(cvv.length() != 3)
+                {
+                System.out.println("Enter cvv:");
+                 cvv = input.nextLine();
+                if(cvv.length() != 3)
+                {
+                    System.out.println("Invalid CVV. CVV should be 3 digits long. Please try again.");
+                    cvv = "";
+                }
+                else
+                {
+                    int num = Integer.parseInt(cvv);
+                    this.cvv = num;
+                    break;
+                }
+                }
+        }
 
 
 
@@ -345,6 +416,7 @@ public void processCardPayment( String cardNumber, String expiryDate,int cvv)
                 chooseDrink();
 
                 System.out.println("Would you like the chance to pay only half for your order? (Y/N):");
+                
                 String halfOff = input.nextLine();
                 if(halfOff.equals("Y")||halfOff.equals("y"))
                 {
