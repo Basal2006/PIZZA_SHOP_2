@@ -120,7 +120,7 @@ public class Slice_O_Heaven
 
             public void chooseDrink()
             {
-             String[] Drinks = new String[4];
+             String Drinks="";
              int i=0;
                 System.out.println("”Choose from one of the drinks below. We recommend Coca Cola:\r\n" + //
                                         " 1. Coca Cola\r\n" + //
@@ -128,31 +128,23 @@ public class Slice_O_Heaven
                                         " 3. Cocoa Drink\r\n" + //
                                         " 4. No drinks for me\r\n" + //
                                         " Enter your choice:");
-                
-                     for( i = 0; i < 3; i++)
-                     {
-                        int choice = input.nextInt();
-                        if(choice == 4)
-                        {
-                            System.out.println("No drinks for me");
-                            break;
-                        }
+                int choice = input.nextInt();
                 switch(choice)
                 {
                     case 1:
-                        System.out.println ("Coca Cola");
-                        Drinks[i] = "Coca Cola";
+
+                        Drinks= "Coca Cola";
                         break;
                     case 2:
-                        System.out.println ("Cold coffee");
-                        Drinks[i] = "Cold coffee";
+
+                        Drinks = "Cold coffee";
                         break;
                     case 3:
-                        System.out.println ("Cocoa Drink");
-                        Drinks[i] = "Cocoa Drink";
+
+                        Drinks = "Cocoa Drink";
                         break;
                     case 4:
-                        System.out.println ("No drinks for me");
+
                         break;
                     default:
                         System.out.println("Invalid choice. Please pick from the given list:");
@@ -160,21 +152,9 @@ public class Slice_O_Heaven
                         break;
                 
                 }
-                     }
-                if(i==1)
-                {
-                    System.out.print("your drink is");
-                    System.out.println(Drinks[0]);
-                }
-                else
-                {
-                System.out.print("your drinks are");
-            for(int j=0;j<=i;j++)
-            {
-                System.out.print(Drinks[j]);
-            }
-            }
-            System.out.println("");
+                System.out.println("Your drink is: " + Drinks);
+                     
+              
             }
 
 
@@ -303,9 +283,9 @@ public void processCardPayment( String cardNumber, String expiryDate,int cvv)
                                         " 4. Chicken\r\n" + //
                                         " 5. Pineapple\r\n" + //
                                         " Enter any three choices (1, 2, 3,…) separated by spaces:");
+                 choice = input.nextLine();
                 for(int i = 0; i < 3; i++)    
-                {    
-                    choice = input.nextLine();               
+                {                 
                   switch(choice.substring(i*2,i*2+1)) 
                   {
                     case "1":
